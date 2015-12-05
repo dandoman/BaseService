@@ -1,7 +1,11 @@
 package org.name.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.name.business.DummyData;
 import org.name.dao.DummyDao;
+import org.name.entity.DummyDataEntity;
 import org.name.request.CreateDummyDataRequest;
 
 import lombok.Setter;
@@ -13,7 +17,16 @@ public class DummyLogic {
 	private DummyDao dummyDao;
 
 	public DummyData createDummyData(CreateDummyDataRequest r) {
-		// TODO Auto-generated method stub
-		return null;
+		return dummyDao.createDummyData(r.getDummyMessage());
 	}
+	
+	public List<DummyData> getDummyAllData() {
+		List<DummyData> returnList = new ArrayList<DummyData>();
+		for(DummyDataEntity d : dummyDao.getDummyData()){
+			returnList.add(d.toDummyData());
+		}
+		
+		return returnList;
+	}
+	
 }

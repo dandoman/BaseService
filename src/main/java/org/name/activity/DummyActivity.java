@@ -1,5 +1,7 @@
 package org.name.activity;
 
+import java.util.List;
+
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
@@ -30,8 +32,8 @@ public class DummyActivity {
     
     @RequestMapping(method = RequestMethod.GET, value = "/read", produces = { APPLICATION_JSON })
     @ResponseBody
-    public DummyData read(@RequestBody CreateDummyDataRequest r) {
-    	return null;
+    public List<DummyData> read() {
+    	return dummyLogic.getDummyAllData();
     }
 		
 }
