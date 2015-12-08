@@ -1,20 +1,16 @@
 package org.name.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.name.business.DummyData;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Table(name = "dummy_data")
+@AllArgsConstructor
 @NoArgsConstructor
 public class DummyDataEntity {
-	@Id private String id;
+	private String id;
 	private String data;
 	
 	public DummyData toDummyData(){

@@ -2,6 +2,7 @@ package org.name.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.name.business.DummyData;
 import org.name.dao.DummyDao;
@@ -17,7 +18,7 @@ public class DummyLogic {
 	private DummyDao dummyDao;
 
 	public DummyData createDummyData(CreateDummyDataRequest r) {
-		return dummyDao.createDummyData(r.getDummyMessage());
+		return dummyDao.createDummyData(r.getDummyMessage(), UUID.randomUUID().toString());
 	}
 	
 	public List<DummyData> getDummyAllData() {
@@ -26,6 +27,19 @@ public class DummyLogic {
 			returnList.add(d.toDummyData());
 		}
 		
+		return returnList;
+	}
+
+	public List<DummyData> getDummyDataById(String id) {
+		List<DummyData> returnList = new ArrayList<DummyData>();
+		List<DummyDataEntity> result = dummyDao.getDummyDataBuilderExample(id);
+		if(result == null){
+			log.info("Empty result");
+			return null;
+		}
+		for(DummyDataEntity d : result){
+			returnList.add(d.toDummyData());
+		}
 		return returnList;
 	}
 	

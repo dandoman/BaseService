@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<bean id="dummyDao" class="org.name.dao.impl.DummyDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="dummyDataMapper" ref="dummyDataMapper" />
 	</bean>
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -21,20 +21,14 @@
 		<property name="user" value="${db.user}" />
 		<property name="password" value="${db.password}" />
 	</bean>
-
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan">
-			<list>
-				<value>org.name.entity</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
-			</props>
-		</property>
+	</bean>
+
+	<!-- Mappers -->
+	<bean id="dummyDataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="org.name.dao.mapper.DummyDataMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 </beans>
